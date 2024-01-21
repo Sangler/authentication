@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG IN</title>
+    <link rel="stylesheet" href="/App.css" type="text/css">
+    <link rel="stylesheet" href="/index.css" type="text/css">
+    <style>
+
+/*-----------*/
+form {
+  width: 350px;
+  height: 450px;
+  margin: auto;
+  text-align: center;
+  list-style: none;
+  padding: 10px 20px 10px 10px;
+  background:#ffffff;
+  border: 2px solid #61ca7a;
+  border-radius: 15px;
+  box-shadow: 0rem 0.3rem 1rem 0.1rem #aeaeae;
+}
+
+
+
+input { 
+  background: #f6f6f6;
+  display: block;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  font-family: Segoe UI;
+  font-size: 15px;
+  border: 2px solid #61ca7a;
+  border-radius: 5px;
+  color:black;
+}
+
+input:hover {
+  background: #eeeeef;
+}
+
+
+.sub {
+  background: #fff;
+  width: 200px;
+  padding: 12px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  color: #61ca7a;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.sub:hover {
+  background-color: #61ca7a;
+  color: #fff;
+}
+
+.sub:active {
+  border: 2px solid #fff;
+}
+
+.google{
+    background: #fff;
+  width: 200px;
+  padding: 12px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  color: #61ca7a;
+  font-size: 18px;
+  border-radius: 5px;
+  &:hover{
+      background: #61ca7a;;
+      color: red;
+  }
+  &:active{ border: 2px solid #fff;}
+}
+hel
+
+form p {
+  font-family: Segoe UI;
+  font-size: 15px;
+  color: #61ca7a;
+}
+
+form a {
+  text-decoration: none;
+}
+
+#footer {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Segoe UI;
+}
+
+#footer a {
+  text-decoration: none;
+  font-family: Mistral;
+  font-size: 18px;
+  color: #105cb1;
+}
+    </style>
+</head>
+<body>
+  <header class="header_area"> 
+    <nav>
+        <!-- logo -->
+        <span>
+            <a id="test" href=""><img src="#" alt=""
+                    style="width:50px; height:50px; padding-top:5px; margin:0 10px;"></a>
+            <h1>Sang T. Truong</h1>
+
+        </span>
+
+        <!-- Collect the nav links, forms, and other content for tosggling -->
+        <div class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a action="submit" id="link-icon"><i id="#" class="#"
+                            style=""></i></a>
+                    <!-- <a class="nav-link" href="index.html" >SHOP </a> -->
+                    <a id="link-icon" href="#"><i id="#" class="#"
+                            style=""></i></a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">ABOUT US</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="">CONTACT</a>
+                    <!-- Icon tags are optional -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Body start here  -->
+    <h1> MY COMPANY'S NAME</h1>
+    <form action="/login" method="post">
+        <h1 style="display: flex; align-items:center; justify-content: center;"> Log In </h1>
+
+        <input id="useremail" name="username" type="text" placeholder="Username"/>
+        <input id="userpwd"  name="password" type="Password" placeholder="Your password"/>
+
+        <input class="sub" type="submit" value="Log in"/>
+        <a href='/google'><input class="google" type="button" value="Google+"></a>
+        <li><a href="#"><p>Need help with password?</p></a></li>
+        <li><a href="/register"><p>Sign Up</p></a></li>
+      </form>
+
+  <script>
+
+  </script>
+</body>
+</html>

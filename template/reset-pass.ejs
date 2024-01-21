@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT 1</title>
+    <!-- Link STYLE CSS -->
+    <link rel="stylesheet" href="./App.css" type="text/css">
+    <link rel="stylesheet" href="./index.css" type="text/css">
+    <link rel="stylesheet" href="./event.js" type="text/javascript">
+    <!-- <link rel="stylesheet" href="./bootstrap.min.css" type="text/css"> -->
+    <!-- TEXT STYLE -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- font-awesome -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+  <header class="header_area"> 
+    <nav>
+        <!-- logo -->
+        <span>
+            <a id="test" href=""><img src="#" alt=""
+                    style="width:50px; height:50px; padding-top:5px; margin:0 10px;"></a>
+            <h1>Sang T. Truong</h1>
+        </span>
+        <!-- Collect the nav links, forms, and other content for tosggling -->
+        <div class="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a action="submit" id="link-icon"><i id="#" class="#"
+                            style=""></i></a>
+                    <!-- <a class="nav-link" href="index.html" >SHOP </a> -->
+                    <a id="link-icon" href="#"><i id="#" class="#"
+                            style=""></i></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="">BACK</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="">HELP</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">ABOUT US</a>
+                </li>
+                <label class="switch">
+                    <input id="checkbox" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                    <!-- Icon tags are optional -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Body start here  -->
+    <div class="container">
+        <div class="logo">
+            <img src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?w=740&t=st=1695405695~exp=1695406295~hmac=493a9afaee5605f37d99e542cbe462ea367f88d70fdd8fc28b9d2aeca456552b" 
+            id="top-img" style="width:20%; height:20%;"></img>
+        </div>
+
+        <div class="heading"><h1>Reset password</h1></div>
+        
+        <div class="inside">
+            <form  id="the-form" action="/register" method="post" class="validate">
+                <label for="username" name="email"></label>
+                <input type="email" id="username" placeholder="Please enter your email" 
+                   name="email" required/>
+                <div class="otp">
+                    <button type="button" id='otp'>SEND CODE</button>
+                  <div class="userInput">
+                    <input type="text" id='ist' maxLength=1  name="otp1"  />
+                    <input type="text" id="sec" maxLength=1  name="otp2"/>
+                    <input type="text" id="third" maxLength=1  name="otp3" />
+                    <input type="text" id="fourth" maxLength=1  name="otp4"/>
+                    <input type="text" id="fifth" maxLength=1  name="otp5"/>
+                    <input type="text" id="sixth" maxLength=1  name="otp6"/>
+                    <!-- <button id='valid'>NEXT</button> -->
+                    </div>
+                </div>
+             <!-- END  -->
+
+                <div class="inside">
+                        <label for="pass"></label>
+                        <label for="re-pass"></label>
+                        <input name="pass" type="password" id="pass" placeholder="New password" style='padding:auto; margin:0;'/>
+                        <input name="userpwd" type="password" id="re-pass" placeholder="Confirm new password" style='padding:auto; margin:0;'name="pass"/>
+                        <button type="submit" class="login"  id="btn" style="margin:10px 0;">SIGN UP</button>
+                        <div class="forget-pass">
+                            <a href="#">Forgot password?</a>
+                            <br>
+                            <a href="/login"> Back to Sign In</a>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    
+<!-- javascript -->
+<script>
+
+const checkbox = document.querySelector("#checkbox")
+checkbox.addEventListener('change', () => {
+const isDarkMode = checkbox.checked;
+    // Add or remove the 'dark-theme' class based on the checkbox state
+    document.documentElement.classList.toggle("dark-theme", isDarkMode);
+});
+const next_btn = document.querySelector("#valid");
+const useremail = document.querySelector("#username");
+const sendOTP = document.querySelector("#otp");
+
+sendOTP.addEventListener("click",async (e)=>{
+    e.preventDefault();
+    // console.log(useremail.value); value in input
+    // Generate a random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    // Send useremail.value & otp to server as JSON{}
+    try {
+        if (response.ok) {
+            // Request was successful
+            console.log('OTP sent successfully!');
+            // Handle further actions after OTP is sent
+        } else {
+            console.error('Failed to send OTP');
+            // Handle error cases
+        }
+    } catch (error) {
+        console.error('Error sending OTP:', error);
+    }
+
+});
+
+next_btn.addEventListener('click', (evt)=>{
+    evt.preventDefault();
+});
+
+/*
+next_btn.addEventListener('click',async (evt)=>{
+    evt.preventDefault();
+    const userOTP ={
+        otp1: document.getElementById('ist').value,
+        otp2: document.getElementById('sec').value,
+        otp3: document.getElementById('third').value,
+        otp4: document.getElementById('fourth').value,
+        otp5: document.getElementById('fifth').value,
+        otp6: document.getElementById('sixth').value
+    }
+
+    try {
+    const response = await fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userOTP: userOTP })
+    });
+    if (response.ok) {
+        console.log('User OTP sent to backend');
+        // Handle further actions after sending user OTP
+    } else {
+        console.error('Failed to send User OTP to backend');
+        // Handle error cases
+    }
+} catch (error) {
+    console.error('Error sending User OTP to backend:', error);
+}
+});
+*/
+
+document.getElementById('the-form').addEventListener('submit', function(event) {
+    const password = document.getElementById('pass').value;
+    const confirmPassword = document.getElementById('re-pass').value;
+    if (password !== confirmPassword){
+        event.preventDefault();
+        alert("RE-ENTER PASSWORD WRONG!");
+    };
+});
+</script>
+
+</body>
+<footer>
+
+</footer>
+
+</html>
