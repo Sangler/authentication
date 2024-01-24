@@ -35,7 +35,7 @@ router.post('/register', catchAsync(async (req, res) => {
           await user.save();
           res.redirect('/login');
         } catch (err){
-          console.log(err);
+          console.err(err);
         }
       } else{
         res.send(`<h1 style="color: linear-gradient(168deg, #ffffff 55%, #c8ff00 0);">Re-enter the correct Password!<h1>
@@ -63,7 +63,7 @@ router.post('/login', async (req,res)=>{
       const IsvalidPass = await bcrypt.compare(password, userLogIn.password) //return Bool
       if (IsvalidPass===true){
         req.session.user_id=userLogIn._id;
-        console.log(`Welcome back! user`);
+        //console.log(`Welcome back! user`);
         return res.redirect('/home');
       } else{
         res.send(`
@@ -75,6 +75,17 @@ router.post('/login', async (req,res)=>{
     }
   });
 
+router.post('/logout', async (req,res)=>{
+  if (req.session.passport && req.session.passport.user) {
+    req.session.destroy();
+    return res.redirect('/login')
+  };
+  if (req.session.user_id) {
+    req.session.user_id=null
+    return res.redirect('/login')
+  };
+  res.redirect('/login');
+})
 
 const isValidUser = (req, res, next)=>{
   // Check if the user is authenticated using Google OAuth
@@ -106,39 +117,6 @@ router.get('/login', (req,res)=>{
 });
 
 router.get('/google', passport.authenticate('google',{
-    scope:['email','profile']
-    
-}));
-router.get('/google/redirect', passport.authenticate('google'), (req,res)=>{
-    res.redirect('/home');
-    console.log(req.session.passport.user);
-
-    
-});
-
-router.get('/home', isValidUser, (req,res)=>{
-    //console.log(req.session)
-    res.render('works.ejs')
-});
-  
-
-//WHAT GO AFTER /SECRET/"anything!" WILL receive the same results
-router.get('/SECRET/:GO_OUT', isValidUser, (req,res) => {
-    res.send(`Welcome ${req.user}`);
-  });
-
-
-
-//HTTP GET requests here!
-router.get('/register',(req,res)=>{ 
-  res.render('register.ejs');
-});
-
-router.get('/login', (req,res)=>{
-    res.render('login.ejs');
-});
-
-router.get('/google', passport.authenticate('google',{
     scope:['profile']
 }));
 
@@ -147,6 +125,9 @@ router.get('/google/redirect', passport.authenticate('google'), (req,res)=>{
 });
 
 router.get('/home', isValidUser, (req,res)=>{
+    res.render('home.ejs')
+  });
+  router.get('/', isValidUser, (req,res)=>{
     res.render('works.ejs')
   });
   
