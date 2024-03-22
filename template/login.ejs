@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOG IN</title>
-    <link rel="stylesheet" href="/App.css" type="text/css">
     <link rel="stylesheet" href="/index.css" type="text/css">
+    <link rel="stylesheet" href="./event.js" type="text/javascript">
     <style>
-
 /*-----------*/
+.dark-theme {
+    background-color: #222;
+    color: #fff;
+}
 form {
-  width: 350px;
-  height: 450px;
+  width: 375px;
+  height: 500px;
   margin: auto;
+  margin-bottom: 50px;
   text-align: center;
   list-style: none;
   padding: 10px 20px 10px 10px;
@@ -60,9 +64,22 @@ input:hover {
 .sub:active {
   border: 2px solid #fff;
 }
-
 .google{
-    background: #fff;
+  &:hover{
+      background: red;;
+      color: rgb(255, 255, 255);
+  }
+}
+
+.facebook{
+  &:hover{
+      background: rgb(64, 19, 246);;
+      color: rgb(255, 255, 255);
+  }
+}
+
+.facebook ,.google{
+  background: #fff;
   width: 200px;
   padding: 12px;
   font-family: Segoe UI;
@@ -70,13 +87,11 @@ input:hover {
   color: #61ca7a;
   font-size: 18px;
   border-radius: 5px;
-  &:hover{
-      background: #61ca7a;;
-      color: red;
-  }
+
+  
   &:active{ border: 2px solid #fff;}
 }
-hel
+
 
 form p {
   font-family: Segoe UI;
@@ -109,7 +124,7 @@ form a {
         <span>
             <a id="test" href=""><img src="#" alt=""
                     style="width:50px; height:50px; padding-top:5px; margin:0 10px;"></a>
-            <h1>Sang T. Truong</h1>
+            <h1>WELCOME</h1>
 
         </span>
 
@@ -117,11 +132,9 @@ form a {
         <div class="navbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a action="submit" id="link-icon"><i id="#" class="#"
-                            style=""></i></a>
+                    <a action="submit" id="link-icon"><i id="#" class="#"></i></a>
                     <!-- <a class="nav-link" href="index.html" >SHOP </a> -->
-                    <a id="link-icon" href="#"><i id="#" class="#"
-                            style=""></i></a>
+                    <a id="link-icon" href="#"><i id="#" class="#"></i></a>
 
                 </li>
                 <li class="nav-item">
@@ -134,26 +147,40 @@ form a {
                     <a class="nav-link " href="">CONTACT</a>
                     <!-- Icon tags are optional -->
                 </li>
+                <label class="switch">
+                  <input id="checkbox" type="checkbox">
+                  <span class="slider round"></span>
+              </label>
             </ul>
         </div>
     </nav>
 </header>
 <!-- Body start here  -->
-    <h1> MY COMPANY'S NAME</h1>
+    <h1>TTS69</h1>
+    
     <form action="/login" method="post">
-        <h1 style="display: flex; align-items:center; justify-content: center;"> Log In </h1>
+        <h1 class="" style="display: flex; align-items:center; justify-content: center; color:#61ca7a">Log In </h1>
 
         <input id="useremail" name="username" type="text" placeholder="Username"/>
-        <input id="userpwd"  name="password" type="Password" placeholder="Your password"/>
-
+        <input id="userpwd"  name="password" type="password" placeholder="Your password"/>
+        
         <input class="sub" type="submit" value="Log in"/>
-        <a href='/google'><input class="google" type="button" value="Google+"></a>
+        <a href='/login/google'><input class="google" type="button" value="Google+"></a>
+        <a href='/login/facebook'><input class="facebook" type="button" value="Facebook"></a>
         <li><a href="#"><p>Need help with password?</p></a></li>
         <li><a href="/register"><p>Sign Up</p></a></li>
-      </form>
+    
+    </form>
 
-  <script>
 
-  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const checkbox = document.querySelector("#checkbox");
+            checkbox.addEventListener('change', () => {
+                const isDarkMode = checkbox.checked;
+                document.documentElement.classList.toggle("dark-theme", isDarkMode);
+            });
+    });
+</script>
 </body>
 </html>
