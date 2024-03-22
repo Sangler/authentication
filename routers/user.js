@@ -3,11 +3,12 @@ const passport = require('passport');
 const User = require('../models/index.js'); // mongo schema
 const bcrypt = require('bcrypt'); 
 
+const GgUserOAUTH = require('../models/oauthGoogle.js'); //Google mongoose schema
+const FBUserOAUTH = require('../models/oauthFacebook.js'); //Facebook mongoose schema
 //HTTP POST requests
 // Route handler for POST /register
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync.js');
-const flash = require('connect-flash');
 
 //HTTP POST requests
 // Route handler for POST /register
@@ -88,21 +89,24 @@ router.post('/logout', async (req,res)=>{
 })
 
 const isValidUser = (req, res, next)=>{
+  // console.log(req.session);
+  // console.log(req.session.passport);
+
   // Check if the user is authenticated using Google OAuth
   if (req.session.passport && req.session.passport.user) {
     return next();
-  }
+  }  
   // Check if the user is authenticated using raw authentication
   if (req.session.user_id) {
     return next();
   }
   // Check if the user is authenticated using Other methods...
   /*
-  if (facebook oauth...) {
+  if (other auth...) {
     return next();
-  }
-  if...
+  }...
   */
+
   res.redirect('/login')
 
 };
@@ -116,25 +120,57 @@ router.get('/login', (req,res)=>{
     res.render('login.ejs');
 });
 
-router.get('/google', passport.authenticate('google',{
+//Google authenticate page
+router.get('/login/google', passport.authenticate('google',{
     scope:['email','profile']
 }));
-
-router.get('/google/redirect', passport.authenticate('google'), (req,res)=>{
-    res.redirect("/home")
+router.get('/login/google/redirect', passport.authenticate('google'), (req,res)=>{
+    res.redirect('/home');
 });
 
-router.get('/home', isValidUser, (req,res)=>{
-    res.render('home.ejs')
+
+//Facebook authenticate page
+router.get('/login/facebook', passport.authenticate('facebook'));
+router.get('/login/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/home');
   });
-  router.get('/', isValidUser, (req,res)=>{
-    res.render('works.ejs')
+
+  
+router.get('/home', isValidUser, async (req,res)=>{
+  try {
+    const user_google = await GgUserOAUTH.findById(req.session.passport.user);
+    const user_fb = await FBUserOAUTH.findById(req.session.passport.user);
+
+    let username = null;
+
+    if (user_google) {
+        // User exists in the Google database, get the username
+        username = user_google.username;
+    } else if (user_fb) {
+        // User exists in the Facebook database, get the username
+        username = user_fb.username;
+    }
+
+    // Render the profile page and pass the username to the template
+    res.render('home.ejs', { username });
+    } catch (error) {
+    console.error('Error fetching user in the database:', error);
+    res.render('error', { message: 'Internal server error' });
+    }
+});
+
+router.get('/', isValidUser, (req,res)=>{
+    res.render('home.ejs')
   });
   
 //WHAT GO AFTER /SECRET/"anything!" WILL receive the same results
-router.get('/ ', isValidUser, (req,res) => {
+router.get('/SECRET/:ABC', isValidUser, (req,res) => {
     res.send("<h1>WELCOME USER </h1>")
   });
 
+  
 
 module.exports = router;
