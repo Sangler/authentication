@@ -17,9 +17,10 @@ const GgUserOAUTH = require('./models/oauthGoogle.js'); //Google mongoose schema
 const FBUserOAUTH = require('./models/oauthFacebook.js'); //Facebook mongoose schema
 
 const router = require('./routers/user.js');
+const testRouter = require("./routers/loged_in_users.js");
 const PORT = 7070
 const keys = require('./utils/process-env.js');
-const testRouter = require("./routers/player.js");
+
 
 
 //Mongoose connection & set-up
