@@ -19,8 +19,13 @@ const FBUserOAUTH = require('./models/oauthFacebook.js'); //Facebook mongoose sc
 const router = require('./routers/user.js');
 const testRouter = require("./routers/loged_in_users.js");
 const PORT = 7070
+
+
 const keys = require('./utils/process-env.js');
 
+//Or using dotenv package to store keys_id and secret keys
+require('dotenv').config()
+console.log(process.env) 
 
 
 //Mongoose connection & set-up
@@ -46,7 +51,7 @@ app.set('views', path.join(__dirname, 'template'));
 
 // Sessions
 const sessionConfig = {
-  secret: keys.sessions.secret,
+  secret: keys.sessions.secret, //process.env.cookie_Sessions
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -69,8 +74,8 @@ app.use(passport.session());
 
 
 passport.use(new GoogleStrategy({
-  clientID: keys.google.clientID,
-  clientSecret: keys.google.clientSecret,
+  clientID: keys.google.clientID, //process.env.googleClientID
+  clientSecret: keys.google.clientSecret,//process.env.googleClientSecret
   callbackURL: '/login/google/redirect',
   scope: ['email','profile']
 }, async function verify(accessToken, refreshToken, profile, done){
@@ -104,8 +109,8 @@ passport.use(new GoogleStrategy({
 
 
 passport.use(new FacebookStrategy({
-  clientID: keys.facebook.App_ID,
-  clientSecret: keys.facebook.App_secret,
+  clientID: keys.facebook.App_ID, //process.env.facebookAppID
+  clientSecret: keys.facebook.App_secret, ///process.env.facebookAppSecret
   callbackURL: '/login/facebook/callback', // The redirect URL after successful authentication
   profileFields: ['id', 'emails', 'displayName', 'photos', 'locale'] // Specify the fields you need
 }, async (accessToken, refreshToken, profile, done) => {
